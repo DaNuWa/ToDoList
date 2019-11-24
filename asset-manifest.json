@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Christmas-ToDoList/static/css/main.8e8a2d5c.chunk.css",
+    "main.js": "/Christmas-ToDoList/static/js/main.c1d2bbd9.chunk.js",
+    "main.js.map": "/Christmas-ToDoList/static/js/main.c1d2bbd9.chunk.js.map",
+    "runtime-main.js": "/Christmas-ToDoList/static/js/runtime-main.77256892.js",
+    "runtime-main.js.map": "/Christmas-ToDoList/static/js/runtime-main.77256892.js.map",
+    "static/js/2.3c9d194c.chunk.js": "/Christmas-ToDoList/static/js/2.3c9d194c.chunk.js",
+    "static/js/2.3c9d194c.chunk.js.map": "/Christmas-ToDoList/static/js/2.3c9d194c.chunk.js.map",
+    "index.html": "/Christmas-ToDoList/index.html",
+    "precache-manifest.306883b27dc2f2331131b524b339d9cd.js": "/Christmas-ToDoList/precache-manifest.306883b27dc2f2331131b524b339d9cd.js",
+    "service-worker.js": "/Christmas-ToDoList/service-worker.js",
+    "static/css/main.8e8a2d5c.chunk.css.map": "/Christmas-ToDoList/static/css/main.8e8a2d5c.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.77256892.js",
+    "static/js/2.3c9d194c.chunk.js",
+    "static/css/main.8e8a2d5c.chunk.css",
+    "static/js/main.c1d2bbd9.chunk.js"
+  ]
+}

@@ -1,0 +1,208 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/Christmas-ToDoList/favicon.ico"/><link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><meta charset="utf-8"/><link rel="icon" href="/Christmas-ToDoList/favicon.ico"/><link href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="logo192.png"/><link rel="manifest" href="/Christmas-ToDoList/manifest.json"/><title>React App</title><link href="/Christmas-ToDoList/static/css/main.8e8a2d5c.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><canvas id="Snow"></canvas><script>!function(a){function e(e){for(var t,r,n=e[0],o=e[1],u=e[2],i=0,l=[];i<n.length;i++)r=n[i],Object.prototype.hasOwnProperty.call(p,r)&&p[r]&&l.push(p[r][0]),p[r]=0;for(t in o)Object.prototype.hasOwnProperty.call(o,t)&&(a[t]=o[t]);for(s&&s(e);l.length;)l.shift()();return c.push.apply(c,u||[]),f()}function f(){for(var e,t=0;t<c.length;t++){for(var r=c[t],n=!0,o=1;o<r.length;o++){var u=r[o];0!==p[u]&&(n=!1)}n&&(c.splice(t--,1),e=i(i.s=r[0]))}return e}var r={},p={1:0},c=[];function i(e){if(r[e])return r[e].exports;var t=r[e]={i:e,l:!1,exports:{}};return a[e].call(t.exports,t,t.exports,i),t.l=!0,t.exports}i.m=a,i.c=r,i.d=function(e,t,r){i.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},i.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.t=function(t,e){if(1&e&&(t=i(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(i.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var n in t)i.d(r,n,function(e){return t[e]}.bind(null,n));return r},i.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return i.d(t,"a",t),t},i.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},i.p="/Christmas-ToDoList/";var t=this.webpackJsonptodolist=this.webpackJsonptodolist||[],n=t.push.bind(t);t.push=e,t=t.slice();for(var o=0;o<t.length;o++)e(t[o]);var s=n;f()}([])</script><script src="/Christmas-ToDoList/static/js/2.3c9d194c.chunk.js"></script><script src="/Christmas-ToDoList/static/js/main.c1d2bbd9.chunk.js"></script></body><script>var Snow = function(canvas_id, options)
+{
+
+	var defaultOptions = {
+		speed: 1,
+		count: 100,
+		images: ["flake1.png", "flake2.png"],
+		size: {
+			min: 10,
+			max: 30
+		}
+	};
+
+	if (options !== null)
+	{
+		for (var prop in defaultOptions)
+		{
+			if (defaultOptions.hasOwnProperty(prop))
+			{
+				if (!options.hasOwnProperty(prop))
+				{
+					options[prop] = defaultOptions[prop];
+				}
+			}
+		}
+	}
+
+	var canvas = document.querySelector(canvas_id);
+
+	var ctx = canvas.getContext("2d");
+
+	var stopped = true, paused = false;
+
+	var halfHorizontal, halfVertical;
+
+	var rand = function (min, max)
+	{
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	var rand_float = function (min, max)
+	{
+		return (Math.random() * (min - max) + max);
+	};
+
+	var flakes = [];
+
+	var Flake = function()
+	{
+		var image = new Image();
+		var imageLoaded = false;
+		var x, y, y_step, size, direction, x_step, x_step_size, rotate, rotate_speed, rotateDiretion, flip, flip_speed;
+
+		var reset = function()
+		{
+			size = rand(options.size.min, options.size.max);
+			x = rand(size, canvas.width);
+			y = -size;
+			y_step = rand_float(1, 5);
+			x_step = 0;
+			x_step_size = rand(1, 10) / 100;
+			direction = rand_float(-1.5, 1.5);
+			rotate = 0;
+			rotateDiretion = rand(0, 1) ? -1 : 1;
+			rotate_speed = 1 + Math.random() * (2 - 1);
+			flip = 1;
+			
+			if (rand(1, 100) <= 50)
+			{
+				flip_speed = -rand_float(0.01, 0.05);
+			}
+			else
+			{
+				flip_speed = 0;
+			}
+		}
+
+
+		image.onload = function()
+		{
+			imageLoaded = true;
+			reset();
+			y = rand(-size, canvas.height);
+		}
+
+		image.src = options.images[rand(0, options.images.length - 1)];
+		
+		this.draw = function()
+		{
+			if (imageLoaded)
+			{
+				y += y_step;
+				x_step += x_step_size;
+				x += Math.cos(x_step);
+				x += direction;
+
+				rotate += rotateDiretion * rotate_speed;
+
+				if (rotate < 0)
+				{
+					rotate = 360;
+				}
+				else if (rotate > 360)
+				{
+					rotate = 0;
+				}
+
+				flip += flip_speed;
+
+				if (flip <= 0 || flip >= 1)
+				{
+					flip_speed *= -1;
+				}
+
+				ctx.save(); 
+				ctx.translate(x, y); 
+				ctx.translate(size / 2, size / 2); 
+				ctx.rotate(rotate * Math.PI / 180);
+				ctx.scale(flip, 1);
+				ctx.drawImage(image, -(size / 2), -(size / 2), size, size); 
+				ctx.restore();
+
+
+				if (y >= canvas.height + size)
+				{
+					reset();
+				}
+			}
+		}
+	}
+
+	this.updateCanvasSize = function()
+	{
+		canvas.width = canvas.parentNode.offsetWidth;
+		canvas.height = canvas.parentNode.offsetHeight;
+		halfHorizontal = canvas.width / 2;
+		halfVertical = canvas.height / 2;
+	}
+
+
+	this.start = function()
+	{
+		if (stopped)
+		{
+			stopped = false;
+			
+			for(let i = 0; i < options.count; i++)
+			{
+				flakes.push(new Flake());
+			}
+
+			this.draw();
+		}
+		else if (paused)
+		{
+			paused = false;
+			this.draw();
+		}
+	}
+
+	this.stop = function()
+	{
+		flakes = [];
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		stopped = true;
+		paused = false;
+	}
+
+	this.pause = function()
+	{
+		paused = true;
+	}
+
+	this.draw = function()
+	{
+		if (!stopped && !paused)
+		{
+
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			for(let i = 0; i < flakes.length; i++)
+			{
+				flakes[i].draw();
+			}
+
+			window.requestAnimationFrame(() => this.draw());
+		}
+	}
+
+	this.updateCanvasSize();
+
+	window.addEventListener("resize", () => this.updateCanvasSize());
+}
+
+
+var SnowFall = new Snow("#Snow", {
+	images: [
+	"http://e-webdev.ru/assets/images/flakes/flake1.png",
+	"http://e-webdev.ru/assets/images/flakes/flake2.png",
+	"http://e-webdev.ru/assets/images/flakes/flake3.png",
+	"http://e-webdev.ru/assets/images/flakes/flake4.png",
+	"http://e-webdev.ru/assets/images/flakes/flake5.png",
+	"http://e-webdev.ru/assets/images/flakes/flake6.png",
+	"http://e-webdev.ru/assets/images/flakes/flake7.png"
+	]
+});
+
+SnowFall.start();</script></html>
